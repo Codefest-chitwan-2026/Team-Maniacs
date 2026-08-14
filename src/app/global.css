@@ -1,0 +1,712 @@
+@import 'leaflet/dist/leaflet.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 11, 27, 43;
+  --background-end-rgb: 6, 13, 21;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb)));
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom Leaflet Map Container Tweaks */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  z-index: 1;
+}
+
+/* Emergency Pulse Animations */
+@keyframes pulse-red {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(220, 38, 38, 0);
+  }
+}
+
+.animate-pulse-emergency {
+  animation: pulse-red 2s infinite;
+}
+
+/* Mobile Scrollbar Clean */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334e68;
+  border-radius: 3px;
+}
+/* =========================================================
+   LIGHT THEME
+   ========================================================= */
+
+.light {
+  /* Core palette */
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 255, 255, 255;
+
+  /* Semantic colors */
+  --light-bg: #f8fafc;
+  --light-surface: #ffffff;
+  --light-surface-muted: #f1f5f9;
+  --light-border: #e2e8f0;
+  --light-border-strong: #cbd5e1;
+
+  --light-text: #0f172a;
+  --light-text-secondary: #334155;
+  --light-text-muted: #64748b;
+  --light-text-subtle: #94a3b8;
+
+  --light-primary: #2563eb;
+  --light-primary-hover: #1d4ed8;
+
+  --light-success: #16a34a;
+  --light-success-hover: #15803d;
+
+  --light-warning: #d97706;
+  --light-danger: #dc2626;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.light,
+.light body {
+  color: rgb(var(--foreground-rgb));
+}
+
+.light body {
+  background:
+    linear-gradient(
+      180deg,
+      rgb(var(--background-start-rgb)) 0%,
+      rgb(var(--background-end-rgb)) 100%
+    );
+}
+
+
+/* =========================================================
+   DARK NAVY SURFACES → LIGHT SURFACES
+   ========================================================= */
+
+/* Main dark surfaces */
+.light .bg-navy-950 {
+  background-color: var(--light-surface-muted) !important;
+  background-image: none !important;
+}
+
+.light .bg-navy-900 {
+  background-color: var(--light-bg) !important;
+  background-image: none !important;
+}
+
+.light .bg-navy-800 {
+  background-color: var(--light-surface) !important;
+  background-image: none !important;
+}
+
+/* Transparency variants */
+.light .bg-navy-950\/40 {
+  background-color: rgba(241, 245, 249, 0.4) !important;
+  background-image: none !important;
+}
+
+.light .bg-navy-950\/60 {
+  background-color: rgba(241, 245, 249, 0.6) !important;
+  background-image: none !important;
+}
+
+.light .bg-navy-950\/80 {
+  background-color: rgba(241, 245, 249, 0.8) !important;
+  background-image: none !important;
+}
+
+.light .bg-navy-900\/95 {
+  background-color: rgba(248, 250, 252, 0.95) !important;
+  background-image: none !important;
+}
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.light .text-white {
+  color: var(--light-text) !important;
+}
+
+.light .text-slate-100 {
+  color: var(--light-text) !important;
+}
+
+.light .text-slate-200 {
+  color: var(--light-text-secondary) !important;
+}
+
+.light .text-slate-300 {
+  color: #475569 !important;
+}
+
+.light .text-slate-400 {
+  color: var(--light-text-muted) !important;
+}
+
+.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+.light .text-slate-600 {
+  color: #475569 !important;
+}
+
+.light .text-slate-700 {
+  color: #334155 !important;
+}
+
+
+/* =========================================================
+   BORDERS
+   ========================================================= */
+
+.light .border-slate-800,
+.light .border-navy-800 {
+  border-color: var(--light-border) !important;
+}
+
+.light .border-slate-700 {
+  border-color: var(--light-border-strong) !important;
+}
+
+.light .border-slate-600 {
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   SURFACES / CARDS
+   ========================================================= */
+
+/*
+ * Don't globally force every rounded element to white.
+ * Only convert the actual dark surface classes.
+ */
+
+.light .bg-white {
+  background-color: #ffffff !important;
+}
+
+.light .bg-slate-950 {
+  background-color: #ffffff !important;
+}
+
+.light .bg-slate-900 {
+  background-color: #ffffff !important;
+}
+
+.light .bg-slate-800 {
+  background-color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   HEADER / NAVIGATION
+   ========================================================= */
+
+.light header,
+.light nav {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  color: var(--light-text) !important;
+  border-color: var(--light-border) !important;
+}
+
+
+/* =========================================================
+   HOVER STATES
+   ========================================================= */
+
+.light .hover\:bg-navy-800:hover {
+  background-color: #f8fafc !important;
+}
+
+.light .hover\:bg-slate-800:hover {
+  background-color: #f1f5f9 !important;
+}
+
+.light .hover\:bg-slate-700:hover {
+  background-color: #e2e8f0 !important;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.light input,
+.light textarea,
+.light select {
+  background-color: #ffffff !important;
+  color: var(--light-text) !important;
+  border-color: var(--light-border-strong) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+.light input:focus,
+.light textarea:focus,
+.light select:focus {
+  border-color: var(--light-primary) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.light a {
+  color: #1d4ed8;
+}
+
+.light a:hover {
+  color: #1e40af;
+}
+
+
+/* =========================================================
+   AMBER / WARNING
+   ========================================================= */
+
+.light .text-amber-400 {
+  color: #b45309 !important;
+}
+
+.light .text-amber-300 {
+  color: #92400e !important;
+}
+
+.light .bg-amber-500 {
+  background-color: #f59e0b !important;
+}
+
+.light .bg-amber-500:hover {
+  background-color: #d97706 !important;
+}
+
+
+/* =========================================================
+   RED / DANGER
+   ========================================================= */
+
+.light .bg-red-600 {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+.light .bg-red-600:hover {
+  background-color: #b91c1c !important;
+}
+
+.light .bg-red-600 svg,
+.light a.bg-red-600 svg,
+.light button.bg-red-600 svg {
+  color: #ffffff !important;
+  fill: currentColor !important;
+}
+
+.light .text-red-400 {
+  color: #b91c1c !important;
+}
+
+.light .text-red-500 {
+  color: #dc2626 !important;
+}
+
+
+/* Soft danger badges */
+
+.light .bg-red-600\/20,
+.light .bg-red-500\/20 {
+  background-color: #fef2f2 !important;
+  color: #b91c1c !important;
+}
+
+
+/* =========================================================
+   EMERGENCY BANNER
+   Keep this intentionally dark/red even in light mode.
+   ========================================================= */
+
+.light div[class*="from-red-600"][class*="to-red-700"] {
+  color: #ffffff !important;
+}
+
+.light div[class*="from-red-600"][class*="to-red-700"] .text-white,
+.light div[class*="from-red-600"][class*="to-red-700"] p,
+.light div[class*="from-red-600"][class*="to-red-700"] span {
+  color: #ffffff !important;
+}
+
+.light div[class*="from-red-600"][class*="to-red-700"] .text-red-100 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+
+/* =========================================================
+   HELP BUTTON
+   ========================================================= */
+
+.help-btn {
+  background-color: #16a34a;
+  color: #ffffff !important;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.help-btn:hover {
+  background-color: #15803d;
+}
+
+.help-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+}
+
+
+/* =========================================================
+   USEFUL BUTTON
+   ========================================================= */
+
+.useful-btn {
+  background-color: #f59e0b;
+  color: #0f172a !important;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.useful-btn:hover {
+  background-color: #d97706;
+}
+
+.useful-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+
+/* =========================================================
+   REPORT CARDS
+   ========================================================= */
+
+/* Dark-mode report cards */
+a.group.bg-gradient-to-r h3.text-amber-400,
+a.group.bg-gradient-to-r h3.font-black {
+  color: #ffb020 !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+a.group.bg-gradient-to-r p.text-slate-300,
+a.group.bg-gradient-to-r p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Light-mode report cards */
+.light a.group.bg-gradient-to-r h3.text-amber-400,
+.light a.group.bg-gradient-to-r h3.font-black {
+  color: #92400e !important;
+  text-shadow: none !important;
+}
+
+.light a.group.bg-gradient-to-r p.text-slate-300,
+.light a.group.bg-gradient-to-r p {
+  color: #475569 !important;
+}
+
+
+/* =========================================================
+   MAP / UTILITY CONTROLS
+   ========================================================= */
+
+/*
+ * These controls are intentionally dark because they sit
+ * over maps and need strong visual separation.
+ */
+
+.bg-slate-950\/95 {
+  color: #ffffff !important;
+}
+
+.bg-slate-950\/95 svg {
+  color: #ffb020 !important;
+}
+
+.light .bg-slate-950\/95 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0;
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.08),
+    0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.light .bg-slate-950\/95 * {
+  color: #0f172a !important;
+}
+
+.light .bg-slate-950\/95 svg {
+  color: #b45309 !important;
+}
+
+
+/* =========================================================
+   SHADOWS
+   ========================================================= */
+
+.light .shadow-lg {
+  box-shadow:
+    0 4px 6px rgba(15, 23, 42, 0.04),
+    0 2px 4px rgba(15, 23, 42, 0.03) !important;
+}
+
+.light .shadow-xl {
+  box-shadow:
+    0 10px 20px rgba(15, 23, 42, 0.06),
+    0 3px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+.light .shadow-2xl {
+  box-shadow:
+    0 20px 35px rgba(15, 23, 42, 0.08),
+    0 5px 12px rgba(15, 23, 42, 0.04) !important;
+}
+
+
+/* =========================================================
+   DIVIDERS
+   ========================================================= */
+
+.light hr {
+  border-color: var(--light-border) !important;
+}
+
+
+/* =========================================================
+   DISABLED STATES
+   ========================================================= */
+
+.light button:disabled,
+.light input:disabled,
+.light textarea:disabled,
+.light select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   SVG / ICONS
+   ========================================================= */
+
+.light a.group svg {
+  color: inherit;
+}
+
+.light svg.text-slate-400 {
+  color: #64748b !important;
+}
+
+.light svg.text-slate-300 {
+  color: #475569 !important;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.light :focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   Avoid this kind of blanket fallback:
+ *
+ * .light [class*="bg-navy-"] {
+ *   background-color: #f8fafc !important;
+ * }
+ *
+ * It destroys intentional variants such as /40, /60, /80, etc.
+ * ========================================================= */
+
+
+ /* =========================================================
+   COLORED ACTION CARDS
+   Keep text bright when the card itself has a strong
+   colored/gradient background.
+   ========================================================= */
+
+/* Main card text */
+.light a.group.bg-gradient-to-r h3,
+.light a.group.bg-gradient-to-r .font-black {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Card descriptions */
+.light a.group.bg-gradient-to-r p,
+.light a.group.bg-gradient-to-r .text-slate-300,
+.light a.group.bg-gradient-to-r .text-slate-400 {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* Icons */
+.light a.group.bg-gradient-to-r svg {
+  color: #ffffff !important;
+}
+
+/* Arrows */
+.light a.group.bg-gradient-to-r svg:last-child {
+  color: #ffffff !important;
+  stroke: currentColor;
+}
+
+
+/* =========================================================
+   SOS / EMERGENCY CARD
+   ========================================================= */
+
+.light a.group[class*="from-red-600"] h3,
+.light a.group[class*="from-red-600"] .font-black {
+  color: #ffffff !important;
+}
+
+.light a.group[class*="from-red-600"] p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.light a.group[class*="from-red-600"] svg {
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   REPORT EMERGENCY CARD
+   ========================================================= */
+
+.light a.group[class*="from-navy-"] h3,
+.light a.group[class*="from-slate-"] h3,
+.light a.group[class*="from-navy-"] .font-black,
+.light a.group[class*="from-slate-"] .font-black {
+  color: #ffffff !important;
+}
+
+.light a.group[class*="from-navy-"] p,
+.light a.group[class*="from-slate-"] p {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+
+/* =========================================================
+   CARD ARROWS
+   ========================================================= */
+
+.light a.group[class*="from-red-600"] svg:last-child {
+  color: #ffffff !important;
+}
+
+.light a.group[class*="from-navy-"] svg:last-child,
+.light a.group[class*="from-slate-"] svg:last-child {
+  color: #f59e0b !important;
+}
+
+
+/* =========================================================
+   CARD ICONS
+   ========================================================= */
+
+.light a.group[class*="from-red-600"] .text-amber-400 {
+  color: #ffffff !important;
+}
+
+.light a.group[class*="from-navy-"] .text-amber-400,
+.light a.group[class*="from-slate-"] .text-amber-400 {
+  color: #fbbf24 !important;
+}
+/* FIX EMERGENCY ACTION CARDS */
+
+.light a[href="/report?type=need_help"].group {
+  background: linear-gradient(to right, #ef2027, #c9151b) !important;
+  color: white !important;
+}
+
+.light a[href="/report?type=need_help"].group h3 {
+  color: white !important;
+}
+
+.light a[href="/report?type=need_help"].group p {
+  color: #fee2e2 !important;
+}
+
+.light a[href="/report?type=need_help"].group svg {
+  color: white !important;
+  stroke: currentColor !important;
+}
+
+
+.light a[href="/report"].group {
+  background: linear-gradient(to right, #12314b, #0b2237) !important;
+  color: white !important;
+}
+
+.light a[href="/report"].group h3 {
+  color: white !important;
+}
+
+.light a[href="/report"].group p {
+  color: #cbd5e1 !important;
+}
+
+.light a[href="/report"].group svg {
+  color: #fbbf24 !important;
+  stroke: currentColor !important;
+}
