@@ -1,4 +1,4 @@
-// File: /Users/princekarki/Team-Maniacs/src/app/api/sync-profile/route.ts
+// File: C:\Users\DOS\Desktop\Team-Maniacs\src\app\api\sync-profile\route.ts
 import * as entry from '../../../../../src/app/api/sync-profile/route.js'
 import type { NextRequest } from 'next/server.js'
 

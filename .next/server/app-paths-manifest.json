@@ -1,11 +1,16 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/map/page": "app/map/page.js",
-  "/login/page": "app/login/page.js",
   "/profile/page": "app/profile/page.js",
   "/api/sync-profile/route": "app/api/sync-profile/route.js",
-  "/relief/page": "app/relief/page.js",
-  "/leadership/page": "app/leadership/page.js",
-  "/profile/edit/page": "app/profile/edit/page.js"
+  "/api/admin/users/route": "app/api/admin/users/route.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/api/admin/stats/route": "app/api/admin/stats/route.js",
+  "/api/admin/sos/route": "app/api/admin/sos/route.js",
+  "/api/admin/broadcasts/route": "app/api/admin/broadcasts/route.js",
+  "/api/admin/volunteers/route": "app/api/admin/volunteers/route.js",
+  "/admin/users/page": "app/admin/users/page.js",
+  "/admin/sos/page": "app/admin/sos/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/volunteers/page": "app/admin/volunteers/page.js"
 }

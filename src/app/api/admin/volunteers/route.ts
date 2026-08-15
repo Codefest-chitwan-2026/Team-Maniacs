@@ -15,26 +15,40 @@ export async function GET(req: Request) {
   if (!supabaseServer) return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   if (!await isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { data, error } = await supabaseServer.from('volunteers').select('*').order('created_at', { ascending: false });
+  // Query profiles table for volunteers (is_volunteer = true)
+  const { data, error } = await supabaseServer
+    .from('profiles')
+    .select('id, name, email, phone, location, satark_points, rank, is_volunteer, role, created_at')
+    .eq('is_volunteer', true)
+    .order('created_at', { ascending: false });
+
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true, volunteers: data });
+  return NextResponse.json({ ok: true, volunteers: data || [] });
 }
 
 export async function POST(req: Request) {
   if (!supabaseServer) return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   if (!await isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const body = await req.json().catch(()=>({}));
+  const body = await req.json().catch(() => ({}));
   const { action, id } = body;
   if (!action || !id) return NextResponse.json({ error: 'Missing params' }, { status: 400 });
 
   if (action === 'verify') {
-    const { error } = await supabaseServer.from('volunteers').update({ verified: true }).eq('id', id);
+    // Mark as volunteer and set role to volunteer
+    const { error } = await supabaseServer
+      .from('profiles')
+      .update({ is_volunteer: true, role: 'volunteer' })
+      .eq('id', id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ ok: true });
   }
 
   if (action === 'reject') {
-    const { error } = await supabaseServer.from('volunteers').update({ verified: false }).eq('id', id);
+    // Revoke volunteer status
+    const { error } = await supabaseServer
+      .from('profiles')
+      .update({ is_volunteer: false, role: 'citizen' })
+      .eq('id', id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ ok: true });
   }
