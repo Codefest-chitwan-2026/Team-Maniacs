@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     password_hash,
   };
 
-  const { data, error } = await supabaseServer.from('profiles').upsert(payload, { onConflict: ['email'] }).select().limit(1).maybeSingle();
+  const { data, error } = await supabaseServer.from('profiles').upsert(payload, { onConflict: 'email' }).select().limit(1).maybeSingle();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   return NextResponse.json({ ok: true, profile: data });

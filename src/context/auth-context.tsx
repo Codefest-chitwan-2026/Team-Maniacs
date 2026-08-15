@@ -7,7 +7,6 @@ import { UserProfile } from '@/types';
 type AuthContextValue = {
   user: UserProfile | null;
   loginWithEmailPhone: (email: string, phone: string, name?: string) => Promise<UserProfile>;
-  logout: () => void;
   updateProfile: (p: UserProfile) => void;
 };
 
@@ -47,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     SatarkStore.setUserProfile(profile);
-    try { localStorage.setItem('satark_token', profile.id); } catch {}
+    try { localStorage.setItem('satark_token', profile.id); } catch { }
     setUser(profile);
     // Sync profile to Supabase (server) to ensure role and DB record exist
     try {
@@ -56,19 +55,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: profile.id, name: profile.name, email: profile.email, phone: profile.phone }),
       });
-    } catch (e) {}
+    } catch (e) { }
     return profile;
   };
 
-  const logout = () => {
-    try {
-      localStorage.removeItem('satark_token');
-      // mark profile as null so SatarkStore.initStore() does not re-seed a demo profile
-      localStorage.setItem('satark_user_profile', JSON.stringify(null));
-    } catch {}
-    // Do not re-seed the demo profile on logout; set user to null to represent unauthenticated state.
-    setUser(null);
-  };
+
 
   const updateProfile = (p: UserProfile) => {
     SatarkStore.setUserProfile(p);
@@ -76,7 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginWithEmailPhone, logout, updateProfile }}>
+    <AuthContext.Provider value={{ user, loginWithEmailPhone, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

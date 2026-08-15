@@ -88,19 +88,13 @@ export default function AccountPage() {
           ? "दुई-कारक प्रमाणीकरण सक्षम भयो"
           : "Two-factor authentication enabled"
         : language === "np"
-        ? "दुई-कारक प्रमाणीकरण अक्षम भयो"
-        : "Two-factor authentication disabled",
+          ? "दुई-कारक प्रमाणीकरण अक्षम भयो"
+          : "Two-factor authentication disabled",
       "success"
     );
   };
 
-  const logoutAll = () => {
-    localStorage.removeItem("satark_sessions");
 
-    setSessions([]);
-
-    showToast(language === "np" ? "सबै सत्रहरू लगआउट गरियो" : "Logged out from all devices", "success");
-  };
 
   const downloadData = () => {
     const data = {
@@ -352,11 +346,7 @@ export default function AccountPage() {
                   <div className="text-xs text-slate-500 py-2">{language === "np" ? "कुनै सक्रिय सत्र छैन" : "No active sessions"}</div>
                 )}
 
-                <div className="mt-2 flex gap-2">
 
-                  <button onClick={logoutAll} className="px-3 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-500 transition">{language === "np" ? "सबै सत्रबाट लगआउट" : "Log out from all devices"}</button>
-
-                </div>
 
               </div>
 

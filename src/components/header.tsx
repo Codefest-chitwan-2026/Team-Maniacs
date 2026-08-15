@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Shield, Globe, AlertTriangle, Bell, Sun, Moon, LogOut, LogIn, User, Settings, HelpCircle, List } from 'lucide-react';
+import { Shield, Globe, AlertTriangle, Bell, Sun, Moon, LogIn, User, Settings, HelpCircle, List } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 import { useAuth } from '@/context/auth-context';
 import SOSModal from './sos-modal';
@@ -49,11 +49,7 @@ export default function Header() {
     try { window.localStorage.setItem('theme', next); } catch { }
   };
 
-  const handleAuthToggle = () => {
-    setMenuOpen(false);
-    if (!auth.user) return router.push('/login');
-    auth.logout();
-  };
+
 
   return (
     <>
@@ -163,10 +159,18 @@ export default function Header() {
 
                     <hr className="my-1 border-navy-800" />
 
-                    <button onClick={handleAuthToggle} className="w-full flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800">
-                      {auth.user ? <LogOut className="w-4 h-4 text-slate-300" /> : <LogIn className="w-4 h-4 text-slate-300" />}
-                      <span>{auth.user ? 'Logout' : 'Login'}</span>
-                    </button>
+                    {!auth.user && (
+                      <button
+                        onClick={() => {
+                          setMenuOpen(false);
+                          router.push('/login');
+                        }}
+                        className="w-full flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800"
+                      >
+                        <LogIn className="w-4 h-4 text-slate-300" />
+                        <span>Login</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               )}

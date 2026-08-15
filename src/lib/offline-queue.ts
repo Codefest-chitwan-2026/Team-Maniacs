@@ -63,7 +63,7 @@ export async function syncOfflineQueue(): Promise<number> {
 
   for (const item of queue) {
     try {
-      await SatarkStore.addReport(item);
+      await SatarkStore.addReport(item as Omit<EmergencyReport, 'id' | 'createdAt' | 'updatedAt'>);
       syncedCount++;
     } catch (error) {
       console.error('Failed to sync report:', error);

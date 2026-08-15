@@ -125,7 +125,7 @@ export default function AdminUsersPage() {
         <div className="relative flex-1 min-w-48">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
           <input
@@ -207,7 +207,7 @@ export default function AdminUsersPage() {
                         </td>
                         <td className="px-4 py-3">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2">
-                            <polyline points="9 18 15 12 9 6"/>
+                            <polyline points="9 18 15 12 9 6" />
                           </svg>
                         </td>
                       </tr>
@@ -233,7 +233,7 @@ export default function AdminUsersPage() {
                     <h3 className="text-sm font-bold text-white">User Profile</h3>
                     <button onClick={() => setSelectedUser(null)} className="text-slate-500 hover:text-white transition-colors">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
                     </button>
                   </div>

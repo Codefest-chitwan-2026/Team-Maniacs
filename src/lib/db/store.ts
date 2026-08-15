@@ -104,7 +104,7 @@ export class SatarkStore {
       try {
         const { data, error } = await supabase.from('emergency_reports').select('*').order('created_at', { ascending: false });
         if (!error && data) return data as unknown as EmergencyReport[];
-      } catch (e) {}
+      } catch (e) { }
     }
     return getLocalItem<EmergencyReport[]>(STORAGE_KEYS.REPORTS, INITIAL_REPORTS);
   }
@@ -121,7 +121,7 @@ export class SatarkStore {
     if (supabase) {
       try {
         await supabase.from('emergency_reports').insert([newReport]);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     const current = getLocalItem<EmergencyReport[]>(STORAGE_KEYS.REPORTS, INITIAL_REPORTS);
@@ -155,7 +155,7 @@ export class SatarkStore {
     if (supabase) {
       try {
         await supabase.from('emergency_reports').update({ status, trust_level: trustLevel }).eq('id', reportId);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // Award points if transitioning to VERIFIED
@@ -174,7 +174,7 @@ export class SatarkStore {
       try {
         const { data, error } = await supabase.from('alerts').select('*').order('created_at', { ascending: false });
         if (!error && data) return data as unknown as Alert[];
-      } catch (e) {}
+      } catch (e) { }
     }
     return getLocalItem<Alert[]>(STORAGE_KEYS.ALERTS, INITIAL_ALERTS);
   }
@@ -358,20 +358,20 @@ export class SatarkStore {
 
     const nextRecord = existingRecord && existingRecord.status === 'REJECTED'
       ? {
-          ...existingRecord,
-          status: 'REGISTERED' as const,
-          completedAt: undefined,
-          verifiedAt: undefined,
-          verifiedBy: undefined,
-          pointsAwarded: 0,
-        }
+        ...existingRecord,
+        status: 'REGISTERED' as const,
+        completedAt: undefined,
+        verifiedAt: undefined,
+        verifiedBy: undefined,
+        pointsAwarded: 0,
+      }
       : {
-          reliefRequestId: requestId,
-          volunteerId,
-          status: 'REGISTERED' as const,
-          registeredAt: new Date().toISOString(),
-          pointsAwarded: 0,
-        };
+        reliefRequestId: requestId,
+        volunteerId,
+        status: 'REGISTERED' as const,
+        registeredAt: new Date().toISOString(),
+        pointsAwarded: 0,
+      };
 
     const updated = list.map((r) => {
       if (r.id !== requestId) return r;

@@ -1,1 +1,25 @@
-{}
+{
+  "app\\map\\page.tsx -> @/components/disaster-map": {
+    "id": 7528,
+    "files": [
+      "static/chunks/d0deef33.e0722780845cf21c.js",
+      "static/chunks/7528.9ad9ede4053db26c.js",
+      "static/chunks/8302.24305ad0be328c9a.js"
+    ]
+  },
+  "app\\map\\page.tsx -> @/lib/db/store": {
+    "id": 6734,
+    "files": [
+      "static/chunks/44530001-0b46bde6071b5f1f.js",
+      "static/chunks/8369-3692d9b3c5bac4e2.js",
+      "static/chunks/6734-53b65cee7f3ab4b4.js"
+    ]
+  },
+  "app\\policies\\community-guideliness\\page.tsx -> @/components/disaster-map": {
+    "id": 7528,
+    "files": [
+      "static/chunks/d0deef33.e0722780845cf21c.js",
+      "static/chunks/7528.9ad9ede4053db26c.js"
+    ]
+  }
+}

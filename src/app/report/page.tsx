@@ -173,10 +173,10 @@ export default function ReportPage() {
                 <div key={st} className="flex flex-col items-center">
                   <div
                     className={`w-6 h-6 rounded-full flex items-center justify-center font-bold mb-1 ${st === submittedReport.status
-                        ? 'bg-amber-500 text-slate-950 animate-pulse'
-                        : i === 0
-                          ? 'bg-safe-500 text-white'
-                          : 'bg-navy-800 text-slate-500'
+                      ? 'bg-amber-500 text-slate-950 animate-pulse'
+                      : i === 0
+                        ? 'bg-safe-500 text-white'
+                        : 'bg-navy-800 text-slate-500'
                       }`}
                   >
                     {i + 1}
@@ -240,8 +240,8 @@ export default function ReportPage() {
                   key={cat.id}
                   onClick={() => setCategory(cat.id)}
                   className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition text-center ${category === cat.id
-                      ? 'bg-red-600/20 border-red-500 text-white font-bold shadow-md'
-                      : 'bg-navy-950 border-slate-800 text-slate-300 hover:bg-navy-800'
+                    ? 'bg-red-600/20 border-red-500 text-white font-bold shadow-md'
+                    : 'bg-navy-950 border-slate-800 text-slate-300 hover:bg-navy-800'
                     }`}
                 >
                   <span className="text-2xl">{cat.icon}</span>
@@ -311,8 +311,8 @@ export default function ReportPage() {
                   key={p.id}
                   onClick={() => setPriority(p.id as PriorityLevel)}
                   className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition text-center ${priority === p.id
-                      ? `${p.color} text-white shadow-md`
-                      : 'bg-navy-950 border-slate-800 text-slate-400 hover:bg-navy-800'
+                    ? `${p.color} text-white shadow-md`
+                    : 'bg-navy-950 border-slate-800 text-slate-400 hover:bg-navy-800'
                     }`}
                 >
                   {p.label}

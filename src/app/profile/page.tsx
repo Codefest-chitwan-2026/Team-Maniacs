@@ -4,17 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/auth-context';
 import { UserProfile } from '@/types';
-import { Edit, LogOut, Mail, Phone, MapPin, Award } from 'lucide-react';
+import { Edit, Mail, Phone, MapPin, Award } from 'lucide-react';
 
 export default function ProfilePage() {
   const router = useRouter();
   const auth = useAuth();
   const profile = auth.user;
 
-  const handleLogout = () => {
-    auth.logout();
-    router.push('/');
-  };
+
   if (!profile) {
     return (
       <div className="max-w-3xl mx-auto p-6">
@@ -29,14 +26,14 @@ export default function ProfilePage() {
     );
   }
 
-  const initials = profile.name ? profile.name.split(' ').map(s => s.charAt(0)).slice(0,2).join('').toUpperCase() : 'U';
+  const initials = profile.name ? profile.name.split(' ').map(s => s.charAt(0)).slice(0, 2).join('').toUpperCase() : 'U';
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="bg-navy-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
         <div className="flex items-center gap-6">
           <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-red-600 to-amber-500 flex items-center justify-center text-white font-extrabold text-3xl overflow-hidden">
-            { (profile as any).avatar ? <img src={(profile as any).avatar} alt="avatar" className="w-full h-full object-cover" /> : initials }
+            {(profile as any).avatar ? <img src={(profile as any).avatar} alt="avatar" className="w-full h-full object-cover" /> : initials}
           </div>
 
           <div className="flex-1">
@@ -52,10 +49,7 @@ export default function ProfilePage() {
                   <span className="text-sm">Edit profile</span>
                 </button>
 
-                <button onClick={handleLogout} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-800 hover:bg-navy-800">
-                  <LogOut className="w-4 h-4" />
-                  <span className="text-sm">Logout</span>
-                </button>
+
               </div>
             </div>
 

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     role: 'citizen',
   };
 
-  const { data, error } = await supabaseServer.from('profiles').upsert(payload, { onConflict: ['id', 'email'] }).select().limit(1).maybeSingle();
+  const { data, error } = await supabaseServer.from('profiles').upsert(payload, { onConflict: 'id' }).select().limit(1).maybeSingle();
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true, profile: data });
 }

@@ -1,21 +1,31 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import DisasterMap from '@/components/disaster-map';
-import { SatarkStore } from '@/lib/db/store';
-import { EmergencyReport, Alert } from '@/types';
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { EmergencyReport, Alert } from "@/types";
+
+// Map libraries such as Leaflet need the browser.
+// Prevent Next.js from trying to render the map on the server.
+const DisasterMap = dynamic(
+  () => import("@/components/disaster-map"),
+  { ssr: false }
+);
 
 export default function MapPage() {
   const [reports, setReports] = useState<EmergencyReport[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  const [category, setCategory] = useState<string>('all');
+  const [category, setCategory] = useState<string>("all");
 
   useEffect(() => {
-    SatarkStore.initStore();
-
     (async () => {
+      // Load the store only in the browser.
+      const { SatarkStore } = await import("@/lib/db/store");
+
+      SatarkStore.initStore();
+
       const r = await SatarkStore.getReports();
       const a = await SatarkStore.getAlerts();
+
       setReports(r);
       setAlerts(a);
     })();
@@ -24,7 +34,10 @@ export default function MapPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold text-white">Live Map</h1>
+        <h1 className="text-2xl font-extrabold text-white">
+          Live Map
+        </h1>
+
         <div className="flex items-center gap-2">
           <select
             value={category}
@@ -45,7 +58,11 @@ export default function MapPage() {
         </div>
       </div>
 
-      <DisasterMap reports={reports} alerts={alerts} selectedCategory={category} />
+      <DisasterMap
+        reports={reports}
+        alerts={alerts}
+        selectedCategory={category}
+      />
     </div>
   );
 }
