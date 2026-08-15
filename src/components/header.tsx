@@ -4,16 +4,19 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Shield, Globe, AlertTriangle, Bell, Sun, Moon, LogOut, LogIn, User, Settings, HelpCircle, List } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
+import { useAuth } from '@/context/auth-context';
 import SOSModal from './sos-modal';
 import { NavLinks } from './top-navbar';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const { language, setLanguage, t } = useLanguage();
   const [isSosOpen, setIsSosOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const auth = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -32,6 +35,9 @@ export default function Header() {
       }
     }
     document.addEventListener('mousedown', onDocClick);
+    // listen for global SOS open events (dispatched from other pages)
+    const onOpenSos = () => setIsSosOpen(true);
+    window.addEventListener('open-sos', onOpenSos as EventListener);
     return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
 
@@ -44,8 +50,9 @@ export default function Header() {
   };
 
   const handleAuthToggle = () => {
-    setIsAuthenticated((s) => !s);
     setMenuOpen(false);
+    if (!auth.user) return router.push('/login');
+    auth.logout();
   };
 
   return (
@@ -106,35 +113,50 @@ export default function Header() {
                 title="Account & settings"
               >
                 <Settings className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
 
               {menuOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-navy-900 border border-navy-800 rounded-lg shadow-xl text-sm z-50">
                   <div className="p-2">
-                    <button onClick={toggleTheme} className="w-full flex items-center gap-2 px-3 py-2 useful-btn">
+                    <button onClick={toggleTheme} className="w-full flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800">
                       {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                       <span>{theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}</span>
                     </button>
 
                     <hr className="my-1 border-navy-800" />
 
-                    <Link href="/profile/edit" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800">
+                    <Link
+                      href="/profile/edit"
+                      onClick={() => { setMenuOpen(false); }}
+                      className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800"
+                    >
                       <User className="w-4 h-4 text-slate-300" />
                       <span>Edit profile</span>
                     </Link>
 
-                    <Link href="/account" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800">
-                      <List className="w-4 h-4 text-slate-300" />
+                    <Link
+                      href="/account"
+                      onClick={() => { setMenuOpen(false); }}
+                      className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800"
+                    >
+                      <Shield className="w-4 h-4 text-slate-300" />
                       <span>Account centre</span>
                     </Link>
 
-                    <Link href="/help" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 help-btn">
-                      <HelpCircle className="w-4 h-4 text-white" />
+                    <Link
+                      href="/help"
+                      onClick={() => { setMenuOpen(false); }}
+                      className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800"
+                    >
+                      <HelpCircle className="w-4 h-4 text-slate-300" />
                       <span>Help & policy</span>
                     </Link>
 
-                    <Link href="/activity" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800">
+                    <Link
+                      href="/activity"
+                      onClick={() => { setMenuOpen(false); }}
+                      className="flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800"
+                    >
                       <List className="w-4 h-4 text-slate-300" />
                       <span>Activity log</span>
                     </Link>
@@ -142,8 +164,8 @@ export default function Header() {
                     <hr className="my-1 border-navy-800" />
 
                     <button onClick={handleAuthToggle} className="w-full flex items-center gap-2 px-3 py-2 rounded hover:bg-navy-800">
-                      {isAuthenticated ? <LogOut className="w-4 h-4 text-slate-300" /> : <LogIn className="w-4 h-4 text-slate-300" />}
-                      <span>{isAuthenticated ? 'Logout' : 'Login'}</span>
+                      {auth.user ? <LogOut className="w-4 h-4 text-slate-300" /> : <LogIn className="w-4 h-4 text-slate-300" />}
+                      <span>{auth.user ? 'Logout' : 'Login'}</span>
                     </button>
                   </div>
                 </div>

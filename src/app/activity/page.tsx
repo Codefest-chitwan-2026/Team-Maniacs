@@ -161,7 +161,7 @@ export default function ActivityPage() {
                 <div className="text-lg font-bold text-white">{selected.title}</div>
                 <div className="text-xs text-slate-400">{fmt(selected.date)}</div>
               </div>
-              <button onClick={() => setSelected(null)} className="text-slate-400">Close</button>
+              {/* header close removed to avoid duplicate; footer close retained */}
             </div>
             <div className="mt-3 text-sm text-slate-300">
               {selected.type === 'report' && (

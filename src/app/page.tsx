@@ -34,25 +34,19 @@ export default function HomePage() {
     <div className="space-y-6">
       {/* Primary Emergency Action Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Link
-          href="/report?type=need_help"
-          className="group relative bg-gradient-to-r from-red-600 via-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-2xl p-6 shadow-xl shadow-red-600/30 border border-red-500/50 flex flex-col justify-between transition-all transform hover:-translate-y-0.5"
+        <button
+          type="button"
+          aria-label="Open SOS modal"
+          onClick={() => {
+            try { window.dispatchEvent(new CustomEvent('open-sos')); } catch (e) { /* ignore */ }
+          }}
+          className="group relative bg-gradient-to-r from-red-600 via-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-2xl p-6 shadow-xl shadow-red-600/30 border border-red-500/50 flex flex-col justify-center items-center text-center transition-all transform hover:-translate-y-0.5"
         >
-          <div className="flex items-center justify-between">
-            <span className="text-3xl">🆘</span>
-            <ArrowRight className="w-6 h-6 text-red-200 group-hover:translate-x-1 transition-transform" />
+          {/* icons removed to highlight large SOS text */}
+          <div className="mt-2">
+            <span className="block font-black text-7xl md:text-9xl leading-none tracking-tight uppercase text-white" style={{ color: '#ffffff' }}>SOS</span>
           </div>
-          <div className="mt-4">
-            <h3 className="font-black text-xl tracking-tight uppercase text-yellow-400">
-              {t.needHelp}
-            </h3>
-            <p className="text-xs text-red-100 mt-1">
-              {language === 'np'
-                ? 'बाढी, पहिरो वा स्वास्थ्य आपत्कालका लागि तत्काल उद्धार टोली बोलाउनुहोस्'
-                : 'Request urgent rescue, shelter, medical or evacuation assistance'}
-            </p>
-          </div>
-        </Link>
+        </button>
 
         <Link
           href="/report"
@@ -63,7 +57,7 @@ export default function HomePage() {
             <ArrowRight className="w-6 h-6 text-amber-400 group-hover:translate-x-1 transition-transform" />
           </div>
           <div className="mt-4">
-            <h3 className="font-black text-xl tracking-tight uppercase text-yellow-400">
+            <h3 className="font-black text-xl tracking-tight uppercase text-yellow-400 force-yellow">
               {t.reportEmergency}
             </h3>
             <p className="text-xs text-white mt-1">

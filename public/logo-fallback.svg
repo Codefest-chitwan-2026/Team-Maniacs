@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Satark Nepal">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="18" fill="#0b1b2b" />
+  <circle cx="36" cy="36" r="20" fill="url(#g)" />
+  <g transform="translate(62,22)">
+    <rect x="0" y="0" width="44" height="44" rx="8" fill="#fff" />
+    <text x="22" y="30" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="18" text-anchor="middle" fill="#0b1b2b">SN</text>
+  </g>
+</svg>

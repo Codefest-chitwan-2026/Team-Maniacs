@@ -364,19 +364,20 @@ body {
 /* =========================================================
    EMERGENCY BANNER
    Keep this intentionally dark/red even in light mode.
+   Applies to any element using the red gradient classes (a, button, div, etc.)
    ========================================================= */
 
-.light div[class*="from-red-600"][class*="to-red-700"] {
+.light [class*="from-red-600"][class*="to-red-700"] {
   color: #ffffff !important;
 }
 
-.light div[class*="from-red-600"][class*="to-red-700"] .text-white,
-.light div[class*="from-red-600"][class*="to-red-700"] p,
-.light div[class*="from-red-600"][class*="to-red-700"] span {
+.light [class*="from-red-600"][class*="to-red-700"] .text-white,
+.light [class*="from-red-600"][class*="to-red-700"] p,
+.light [class*="from-red-600"][class*="to-red-700"] span {
   color: #ffffff !important;
 }
 
-.light div[class*="from-red-600"][class*="to-red-700"] .text-red-100 {
+.light [class*="from-red-600"][class*="to-red-700"] .text-red-100 {
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
@@ -709,4 +710,22 @@ a.group.bg-gradient-to-r p {
 .light a[href="/report"].group svg {
   color: #fbbf24 !important;
   stroke: currentColor !important;
+}
+
+/* Force yellow for specific report heading when developer requests it */
+a.group.bg-gradient-to-r h3.force-yellow,
+a.group.bg-gradient-to-r h3.font-black.force-yellow {
+  color: #facc15 !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55) !important;
+}
+
+.light a.group.bg-gradient-to-r h3.force-yellow,
+.light a.group.bg-gradient-to-r h3.font-black.force-yellow {
+  color: #facc15 !important;
+  text-shadow: none !important;
+}
+
+.light a[href="/report"].group h3.force-yellow {
+  color: #facc15 !important;
+  text-shadow: none !important;
 }

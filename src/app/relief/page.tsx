@@ -355,7 +355,7 @@ export default function ReliefPage() {
                                 : isLoading
                                   ? 'bg-amber-600 text-white cursor-wait opacity-75'
                                   : !isVolunteerRegistered
-                                    ? 'bg-slate-700 text-slate-400 cursor-not-allowed opacity-60'
+                                    ? 'bg-navy-800 text-white cursor-not-allowed opacity-80'
                                     : 'bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer'
                         }`}
                       >

@@ -27,18 +27,19 @@ export default function Navigation() {
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
+            const activeClass = item.highlight
+              ? 'text-red-500 font-extrabold scale-105'
+              : isActive
+                ? 'bg-amber-400/10 text-amber-300 font-bold scale-105 shadow-lg ring-2 ring-amber-400/20'
+                : 'text-slate-400 hover:text-slate-200';
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center py-1.5 px-2 rounded-xl transition ${item.highlight
-                  ? 'text-red-500 font-extrabold scale-105'
-                  : isActive
-                    ? 'text-amber-400 font-bold'
-                    : 'text-slate-400 hover:text-slate-200'
-                  }`}
+                className={`flex flex-col items-center py-1.5 px-2 rounded-xl transition-transform duration-150 ${activeClass}`}
               >
-                <Icon className={`w-5 h-5 ${item.highlight ? 'w-6 h-6 animate-pulse' : ''}`} />
+                <Icon className={`flex-shrink-0 ${item.highlight ? 'w-6 h-6 animate-pulse' : isActive ? 'w-6 h-6' : 'w-5 h-5'}`} />
                 <span className="text-[10px] mt-0.5 tracking-tight font-medium">
                   {item.label}
                 </span>
