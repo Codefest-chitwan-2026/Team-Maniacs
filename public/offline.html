@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="np">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satark Nepal | सतर्क नेपाल — Offline Mode</title>
+  <style>
+    body {
+      background-color: #0b1b2b;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card {
+      background: #102a43;
+      border: 1px solid #334e68;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .badge {
+      background: #dc2626;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 15px 0 5px;
+    }
+
+    p {
+      color: #9fb3c8;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      background: #f59e0b;
+      color: #0b1b2b;
+      border: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 15px;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <span class="badge">📡 Offline Mode Active</span>
+    <h1>Satark Nepal | सतर्क नेपाल</h1>
+    <p>तपाईं अहिले इन्टरनेट पहुँच बिना अफलाइन हुनुहुन्छ।</p>
+    <p>You are currently offline. Emergency reports can still be submitted locally and will automatically synchronize
+      when internet restores.</p>
+    <button class="btn" onclick="window.location.reload()">Retry Connection</button>
+  </div>
+</body>
+
+</html>
