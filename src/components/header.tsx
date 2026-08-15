@@ -59,11 +59,11 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
               <img
-                src="/satark.svg"
+                src="/satark.jpg"
                 alt="Satark Nepal"
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  // fallback to bundled svg if satark.svg fails to load
+                  // fallback to bundled svg if satark.jpg fails to load
                   (e.currentTarget as HTMLImageElement).src = '/logo-fallback.svg';
                 }}
               />

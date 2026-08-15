@@ -45,6 +45,9 @@ export default function HomePage() {
           {/* icons removed to highlight large SOS text */}
           <div className="mt-2">
             <span className="block font-black text-7xl md:text-9xl leading-none tracking-tight uppercase text-white" style={{ color: '#ffffff' }}>SOS</span>
+            <span className="block text-xs md:text-sm font-semibold tracking-wide text-red-100 mt-2">
+              {language === 'np' ? 'छिटो प्रतिक्रिया, सशक्त उद्धार' : 'Quick Response, Stronger Rescue'}
+            </span>
           </div>
         </button>
 
